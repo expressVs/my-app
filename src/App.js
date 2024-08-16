@@ -2,6 +2,21 @@ import { useEffect, useState } from 'react';
 
 import './App.css';
 
+
+function Bpp(){
+  const [show, setShow] = useState(true)
+
+  const btn_click = ()=>{
+    setShow(!show)
+  }
+  return (
+    <div>
+      {show && <App />}
+      <button onClick={btn_click}>点我切换</button>
+    </div>
+  )
+}
+
 function App() {
 
   const [count, setCount] = useState(0) // [0, function(){}
@@ -10,30 +25,16 @@ function App() {
   }) // ['张三', function(){}
 
   useEffect(() => {
-    console.log('空的useEffect')
-  })
-
-  // 第一个参数回调函数：组件初始化执行，组件更新之后会执行（dom更新完成）
-  useEffect(() => {
-    // console.log('name发生了变化', count)
-    // return () => {
-    //   console.log('组件卸载')
-    // }
-  },[name])
-
-  useEffect(() => {
-    // console.log('count发生了变化', count)
-    // return () => {
-    //   console.log('组件卸载')
-    // }
-  },[count])
-
-  useEffect(() => {
-    // console.log('count或name发生了变化', count)
-    // return () => {
-    //   console.log('组件卸载')
-    // }
-  },[count, name])
+    console.log('useEffect 组件执行', count)
+    
+    return () => {
+      // 1. 组件卸载的时候，执行
+      // 2. 依赖项状态发送变化的时候，执行
+      // 作用：用于卸载
+      console.log('effect返回函数的执行', count);
+      
+    }
+  }, [count])
 
 
   function btn_click() {
@@ -58,4 +59,4 @@ function App() {
   )
 }
 
-export default App;
+export default Bpp;
